@@ -1,4 +1,33 @@
- 
+(function () {
+  const t = document.createElement("link").relList;
+  if (t && t.supports && t.supports("modulepreload")) return;
+  for (const i of document.querySelectorAll('link[rel="modulepreload"]')) r(i);
+  new MutationObserver((i) => {
+    for (const o of i)
+      if (o.type === "childList")
+        for (const a of o.addedNodes)
+          a.tagName === "LINK" && a.rel === "modulepreload" && r(a);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function n(i) {
+    const o = {};
+    return (
+      i.integrity && (o.integrity = i.integrity),
+      i.referrerpolicy && (o.referrerPolicy = i.referrerpolicy),
+      i.crossorigin === "use-credentials"
+        ? (o.credentials = "include")
+        : i.crossorigin === "anonymous"
+        ? (o.credentials = "omit")
+        : (o.credentials = "same-origin"),
+      o
+    );
+  }
+  function r(i) {
+    if (i.ep) return;
+    i.ep = !0;
+    const o = n(i);
+    fetch(i.href, o);
+  }
+})();
 var Xn =
   typeof globalThis < "u"
     ? globalThis
@@ -899,7 +928,9 @@ we.xlinkHref = new Ne(
   !0,
   !1
 );
- 
+["src", "href", "action", "formAction"].forEach(function (e) {
+  we[e] = new Ne(e, 1, !1, e.toLowerCase(), null, !0, !0);
+});
 function ga(e, t, n, r) {
   var i = we.hasOwnProperty(t) ? we[t] : null;
   (i !== null
@@ -15428,7 +15459,7 @@ function rg(e) {
     ],
   })(e);
 }
-const Gs = "../img/pritom.94c956fd.png",
+const Gs = ".",
   ig = () =>
     _(ud, {
       children: _("ul", {
@@ -15584,10 +15615,91 @@ const Gs = "../img/pritom.94c956fd.png",
         }),
       ],
     });
-  }
-   
-   
- 
+  },
+  lg = () => {
+    const [e, t] = Be.exports.useState(!1);
+    return W("div", {
+      className: "container px-6 mb-10 mt-20",
+      id: "research",
+      children: [
+        _("h2", { className: "title", children: "Research Paper" }),
+        _("div", {
+          className: "mt-10",
+          children: e
+            ? W(ud, {
+                children: [
+                  Ps.map((n) => _(Ks, { data: n }, n.id)),
+                  _("div", {
+                    className: "w-full flex justify-center mb-6",
+                    children: _("button", {
+                      children: _("a", {
+                        href: "https://www.researchgate.net/profile/Pritom-Sarker",
+                        target: "_blank",
+                        children: "Show All Research Paper",
+                      }),
+                    }),
+                  }),
+                ],
+              })
+            : Ps.map((n) => n.id <= 3 && _(Ks, { data: n }, n.id)),
+        }),
+        _("div", {
+          className: "w-full flex justify-center",
+          children: _("p", {
+            className: "w-fit text-white text-3xl rounded-full cursor-pointer",
+            onClick: () => t((n) => !n),
+            children: e ? _(xv, {}) : _(kv, {}),
+          }),
+        }),
+      ],
+    });
+  },
+  ag = () =>
+    W("div", {
+      className: "max-w-[720px] mx-auto px-6 py-20",
+      children: [
+        _("h2", { className: "title", children: "Skills" }),
+        _("div", {
+          className: "grid grid-cols-2 md:grid-cols-4 gap-3 py-12",
+          children: Xv.map((e) =>
+            _(
+              "div",
+              {
+                className:
+                  "bg-sky-600/20 rounded-xl flex flex-col place-items-center pt-5 pb-2 hover:scale-105 duration-300 hover:bg-sky-600/40 gap-4",
+                children: W("div", {
+                  className: "text-center h-full flex flex-col justify-center",
+                  children: [
+                    _("img", {
+                      src: e.img,
+                      className: "max-w-[80px]",
+                      alt: "",
+                    }),
+                    _("h4", { className: "text-white mt-2", children: e.tech }),
+                  ],
+                }),
+              },
+              e.id
+            )
+          ),
+        }),
+      ],
+    }),
+  ug = () =>
+    W("div", {
+      children: [
+        _(og, {}),
+        _(Zm, {}),
+        _(ag, {}),
+        _(Km, {}),
+        _(Ym, {}),
+        _(lg, {}),
+        _(eg, {}),
+      ],
+    });
+function sg() {
+  return _("div", { children: _(ug, {}) });
+}
 rl.createRoot(document.getElementById("root")).render(
   _(fi.StrictMode, { children: _(sg, {}) })
 );
