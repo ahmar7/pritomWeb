@@ -957,6 +957,18 @@ button {
     color: rgb(56 189 248 / var(--tw-text-opacity))
 }
 
+.hide-it {
+    display: none;
+}
+
+.rotate-it {
+    transform: rotate(180deg);
+}
+
+.slick-slider.center.slick-initialized {
+    height: fit-content;
+}
+
 @media (min-width: 768px) {
     .md\:mx-auto {
         margin-left: auto;
